@@ -50,3 +50,20 @@ func TestListFromConfigContent2Remote(t *testing.T) {
 		t.Errorf("Expected \n%#v\ngot\n%#v", expectedRemotes, remotes)
 	}
 }
+
+func TestRemoteRepository(t *testing.T) {
+	r := &Remote{URL: "git@github.com:Soulou/pipomolo.git"}
+	if r.Repository() != "Soulou/pipomolo.git" {
+		t.Errorf("Expected %s, got %s", "Soulou/pipomolo.git", r.Repository())
+	}
+
+	r = &Remote{URL: "git@github.com:pipomolo.git"}
+	if r.Repository() != "pipomolo.git" {
+		t.Errorf("Expected %s, got %s", "pipomolo.git", r.Repository())
+	}
+
+	r = &Remote{URL: "ssh://git@github.com:22/pipomolo.git"}
+	if r.Repository() != "pipomolo.git" {
+		t.Errorf("Expected %s, got %s", "pipomolo.git", r.Repository())
+	}
+}

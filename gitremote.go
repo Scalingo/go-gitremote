@@ -58,12 +58,27 @@ func (r *Remote) Host() string {
 		return url.Host
 	}
 
-	matches := sshURLRe.FindStringSubmatch(r.URL)
+	matches := sshURLHostRe.FindStringSubmatch(r.URL)
 	if len(matches) == 2 {
 		return matches[1]
 	}
 
-	return "n/a"
+	return "invalid url"
+}
+
+func (r *Remote) Repository() string {
+	url, err := url.Parse(r.URL)
+	if err == nil && url.Host != "" {
+		// Remove initial '/'
+		return url.Path[1:]
+	}
+
+	matches := sshURLRepoRe.FindStringSubmatch(r.URL)
+	if len(matches) == 2 {
+		return matches[1]
+	}
+
+	return "invalid url"
 }
 
 func (r *Remote) ToConfig() (string, error) {

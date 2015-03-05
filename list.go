@@ -10,7 +10,8 @@ var (
 	remoteTitleRe = regexp.MustCompile(`^\[remote\s"([A-Za-z0-9-_]+)"]$`)
 	remoteURLRe   = regexp.MustCompile(`^\s+url\s*=\s*(.*)$`)
 	remoteFetchRe = regexp.MustCompile(`^\s+fetch\s*=\s*(.*)$`)
-	sshURLRe      = regexp.MustCompile(`^\w+@(.+):.+$`)
+	sshURLHostRe  = regexp.MustCompile(`^\w+@(.+):.+$`)
+	sshURLRepoRe  = regexp.MustCompile(`^\w+@.+:(.+)$`)
 )
 
 // List returns the list of the remote for the GIT repository defined by path.
